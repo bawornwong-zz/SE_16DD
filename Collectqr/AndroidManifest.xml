@@ -12,12 +12,13 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
+        android:name="ParseApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" android:name="ParseApplication">
+        android:theme="@style/AppTheme" >
         <activity
-            android:name="ac.th.kmitl.it.se.stamper.MainActivity"
+            android:name="ac.th.kmitl.it.se.stamper.Splash"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
             <intent-filter>
@@ -26,11 +27,26 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="ac.th.kmitl.it.se.stamper.DucatiActivity" 
-            	  android:screenOrientation="portrait">
+        <activity
+            android:name="ac.th.kmitl.it.se.stamper.MainActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
         </activity>
-        <activity android:name="ac.th.kmitl.it.se.stamper.ComingSoonActivity" 
-            	  android:screenOrientation="portrait">
+        <activity
+            android:name="ac.th.kmitl.it.se.stamper.DucatiActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="ac.th.kmitl.it.se.stamper.ComingSoonActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="ac.th.kmitl.it.se.stamper.StarbucksActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="ac.th.kmitl.it.se.stamper.CollectQRActivity"
+            android:screenOrientation="portrait" >
         </activity>
     </application>
 

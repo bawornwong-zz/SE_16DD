@@ -2,6 +2,7 @@ package ac.th.kmitl.it.se.stamper;
 
 import com.haarman.listviewanimations.swinginadapters.prepared.SwingLeftInAnimationAdapter;
 import com.parse.*;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -28,7 +29,7 @@ import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
-	private GridView HeaderGrid;
+	private GridView photoGrid;
 	private int mPhotoSize, mPhotoSpacing;
 	private ImageAdapter imageAdapter;
 	String[] parts;
@@ -38,15 +39,24 @@ public class MainActivity extends Activity {
 
 	// Some items to add to the GRID
 	private static final String[] CONTENT_Header = new String[] {
-			"Tap to Scan", "Ducati", "FarmDesign", "Hermes", "KFC",
-			"MC Donald", "Pronto", "Shell", "Sizzler", "SP", "Starbucks",
-			"Yayoi" };
-	private static final int[] ICONS_Header = new int[] {
-			R.drawable.camera_icon, R.drawable.logo_ducati,
+			"                     CollectQR", "                  Tap to Scan",
+			"Starbucks", "FarmDesign", "Hermes", "KFC", "MC Donald", "Pronto",
+			"Sizzler", "SP", "Yayoi", "Seven Eleven", "Black Canyon",
+			"Burger King", "Cold Stone", "Dak Gai Bi", "Domino", "Kimju",
+			"Krispy Kream", "Kyorollen", "MK", "Narai Pizza",
+			"The Pizza Company", "Pizza Hut", "Swensen" };
+	private static final int[] ICONS_Header = new int[] { R.drawable.collectqr,
+			R.drawable.camera_icon, R.drawable.logo_starbucks,
 			R.drawable.logo_farmdesign, R.drawable.logo_hermes,
 			R.drawable.logo_kfc, R.drawable.logo_mc, R.drawable.logo_pronto,
-			R.drawable.logo_shell, R.drawable.logo_sizzler, R.drawable.logo_sp,
-			R.drawable.logo_starbucks, R.drawable.logo_yayoi };
+			R.drawable.logo_sizzler, R.drawable.logo_sp, R.drawable.logo_yayoi,
+			R.drawable.swensen_logo, R.drawable.blackcanyon_logo,
+			R.drawable.burgerking_logo, R.drawable.coldstone_logo,
+			R.drawable.dakgalbi_logo, R.drawable.domino_logo,
+			R.drawable.kinju_logo, R.drawable.krispykream_logo,
+			R.drawable.kyorollen_logo, R.drawable.mk_logo,
+			R.drawable.narai_logo, R.drawable.pizzaconpany_logo,
+			R.drawable.pizzahut_logo, R.drawable.swensen_logo };
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -61,26 +71,25 @@ public class MainActivity extends Activity {
 
 		// initialize image adapter
 		imageAdapter = new ImageAdapter();
-		// Animation
-		// SwingLeftInAnimationAdapter headerAdapter = new
-		// SwingLeftInAnimationAdapter(
-		// imageAdapter);
 
-		HeaderGrid = (GridView) findViewById(R.id.HeaderGrid);
+		photoGrid = (GridView) findViewById(R.id.photoGrid);
 
-		// set image adapter to the GridView
-		HeaderGrid.setAdapter(imageAdapter);
+		// Header
+		SwingLeftInAnimationAdapter headerAdapter = new SwingLeftInAnimationAdapter(
+				imageAdapter);
+		headerAdapter.setAbsListView(photoGrid);
+		photoGrid.setAdapter(headerAdapter);
 
 		// get the view tree observer of the grid and set the height and numcols dynamically
-		HeaderGrid.getViewTreeObserver().addOnGlobalLayoutListener(
+		photoGrid.getViewTreeObserver().addOnGlobalLayoutListener(
 				new ViewTreeObserver.OnGlobalLayoutListener() {
 					@Override
 					public void onGlobalLayout() {
 						if (imageAdapter.getNumColumns() == 0) {
-							final int numColumns = (int) Math.floor(HeaderGrid
+							final int numColumns = (int) Math.floor(photoGrid
 									.getWidth() / (mPhotoSize + mPhotoSpacing));
 							if (numColumns > 0) {
-								final int columnWidth = (HeaderGrid.getWidth() / numColumns)
+								final int columnWidth = (photoGrid.getWidth() / numColumns)
 										- mPhotoSpacing;
 								imageAdapter.setNumColumns(numColumns);
 								imageAdapter.setItemHeight(columnWidth);
@@ -89,34 +98,42 @@ public class MainActivity extends Activity {
 						}
 					}
 				});
-		
-		HeaderGrid.setOnItemClickListener(new OnItemClickListener() {
+
+		photoGrid.setOnItemClickListener(new OnItemClickListener() {
 
 			public void onItemClick(AdapterView<?> parent, View v,
 					int position, long id) {
 
 				switch (position) {
-				// Click to Scan QR CODE
 				case 0:
-					Intent intent = new Intent(
-							"com.google.zxing.client.android.SCAN");
-					intent.putExtra("SCAN_MODE", "QR_CODE_MODE");
-					startActivityForResult(intent, 0);
 					break;
+					// Click to Scan QR CODE
 				case 1:
+					Intent intent1 = new Intent(
+							"com.google.zxing.client.android.SCAN");
+					intent1.putExtra("SCAN_MODE", "QR_CODE_MODE");
+					startActivityForResult(intent1, 0);
+					break;
+				case 2:
 					company = "none";
 					object_id = "none";
 					point = "-1";
 
-					Intent in = new Intent(getApplicationContext(),
-							DucatiActivity.class);
+					Intent intent2 = new Intent(getApplicationContext(),
+							StarbucksActivity.class);
 
 					Bundle data = new Bundle();
 					data.putString("company", company);
 					data.putString("object_id", object_id);
 					data.putString("point", point);
-					in.putExtras(data);
-					startActivity(in);
+					intent2.putExtras(data);
+					startActivity(intent2);
+					break;
+				default:
+					Intent intent = new Intent(getApplicationContext(),
+							ComingSoonActivity.class);
+
+					startActivity(intent);
 					break;
 				}
 			}
@@ -146,7 +163,7 @@ public class MainActivity extends Activity {
 				if (company.compareTo("Ducati") == 0) {
 
 					Intent in = new Intent(getApplicationContext(),
-							DucatiActivity.class);
+							CollectQRActivity.class);
 					Bundle data = new Bundle();
 					data.putString("company", company);
 					data.putString("object_id", object_id);

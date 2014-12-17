@@ -4,6 +4,7 @@ import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 import com.parse.ParseException;
 import com.parse.ParseObject;
+import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
 import android.app.Activity;
@@ -11,8 +12,12 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.view.ContextMenu;
 import android.view.Display;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -76,19 +81,32 @@ public class ShopActivity extends Activity {
 								smallerDimension);
 						try {
 							Bitmap bitmap = qrCodeEncoder.encodeAsBitmap();
-							ImageView myImage = (ImageView) findViewById(R.id.imageView_qr);
-							myImage.setImageBitmap(bitmap);
+							ImageView qrImage = (ImageView) findViewById(R.id.imageView_qr);
+							qrImage.setImageBitmap(bitmap);
 
 						} catch (WriterException e) {
 							e.printStackTrace();
 						}
 					}
 				});
-
-				// TextView test = (TextView) findViewById(R.id.textView1);
-				// test.setText(qrInputText);
 			}
 		});
 
+	}
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.shop, menu);
+		return true;
+	}
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		int id = item.getItemId();
+        if (id == R.id.action_settings) {
+            ParseUser.getCurrentUser().logOut();
+            startActivity(new Intent(getBaseContext(), LoginActivity.class));
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
 	}
 }
