@@ -54,8 +54,8 @@ public class ShopActivity extends Activity {
 
 				// Connect to Parse
 				final ParseObject newQR = new ParseObject(shopName+"Shop");
-				newQR.put("CheckPoint", false);
-				newQR.put("Point", Integer.parseInt(qrInputText));
+				newQR.put("checkPoint", false);
+				newQR.put("point", Integer.parseInt(qrInputText));
 				newQR.saveInBackground(new SaveCallback() {
 
 					@Override
@@ -76,7 +76,7 @@ public class ShopActivity extends Activity {
 
 						// Encode with a QR Code image
 						QRCodeEncoder qrCodeEncoder = new QRCodeEncoder(
-								"Ducati/" + objId, null, Contents.Type.TEXT,
+								shopName+ "/" + objId, null, Contents.Type.TEXT,
 								BarcodeFormat.QR_CODE.toString(),
 								smallerDimension);
 						try {

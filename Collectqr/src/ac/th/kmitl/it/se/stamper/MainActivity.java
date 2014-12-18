@@ -6,6 +6,7 @@ import com.parse.*;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -29,23 +30,24 @@ import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
-	private GridView photoGrid;
+	private GridView photoGrid, ShopGrid;
 	private int mPhotoSize, mPhotoSpacing;
 	private ImageAdapter imageAdapter;
 	String[] parts;
 	String company;
 	String object_id;
 	String point;
+	private static final String MY_PREFS = "my_prefs";
 
 	// Some items to add to the GRID
-	private static final String[] CONTENT_Header = new String[] {
+	private static final String[] CONTENTS = new String[] {
 			"                     CollectQR", "                  Tap to Scan",
 			"Starbucks", "FarmDesign", "Hermes", "KFC", "MC Donald", "Pronto",
 			"Sizzler", "SP", "Yayoi", "Seven Eleven", "Black Canyon",
 			"Burger King", "Cold Stone", "Dak Gai Bi", "Domino", "Kimju",
 			"Krispy Kream", "Kyorollen", "MK", "Narai Pizza",
 			"The Pizza Company", "Pizza Hut", "Swensen" };
-	private static final int[] ICONS_Header = new int[] { R.drawable.collectqr,
+	private static final int[] ICONS = new int[] { R.drawable.collectqr,
 			R.drawable.camera_icon, R.drawable.logo_starbucks,
 			R.drawable.logo_farmdesign, R.drawable.logo_hermes,
 			R.drawable.logo_kfc, R.drawable.logo_mc, R.drawable.logo_pronto,
@@ -62,6 +64,7 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		// this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		CheckImage();
 		setContentView(R.layout.activity_main);
 
 		// get the photo size and spacing
@@ -75,12 +78,13 @@ public class MainActivity extends Activity {
 		photoGrid = (GridView) findViewById(R.id.photoGrid);
 
 		// Header
-		SwingLeftInAnimationAdapter headerAdapter = new SwingLeftInAnimationAdapter(
+		SwingLeftInAnimationAdapter photoAdapter = new SwingLeftInAnimationAdapter(
 				imageAdapter);
-		headerAdapter.setAbsListView(photoGrid);
-		photoGrid.setAdapter(headerAdapter);
+		photoAdapter.setAbsListView(photoGrid);
+		photoGrid.setAdapter(photoAdapter);
 
-		// get the view tree observer of the grid and set the height and numcols dynamically
+		// get the view tree observer of the grid and set the height and numcols
+		// dynamically
 		photoGrid.getViewTreeObserver().addOnGlobalLayoutListener(
 				new ViewTreeObserver.OnGlobalLayoutListener() {
 					@Override
@@ -98,7 +102,7 @@ public class MainActivity extends Activity {
 						}
 					}
 				});
-
+		// Click to Scan QR CODE
 		photoGrid.setOnItemClickListener(new OnItemClickListener() {
 
 			public void onItemClick(AdapterView<?> parent, View v,
@@ -107,7 +111,6 @@ public class MainActivity extends Activity {
 				switch (position) {
 				case 0:
 					break;
-					// Click to Scan QR CODE
 				case 1:
 					Intent intent1 = new Intent(
 							"com.google.zxing.client.android.SCAN");
@@ -127,6 +130,7 @@ public class MainActivity extends Activity {
 					data.putString("object_id", object_id);
 					data.putString("point", point);
 					intent2.putExtras(data);
+					intent2.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 					startActivity(intent2);
 					break;
 				default:
@@ -160,7 +164,7 @@ public class MainActivity extends Activity {
 				object_id = parts[1];
 				point = "0";
 
-				if (company.compareTo("Ducati") == 0) {
+				if (company.compareTo("Starbucks") == 0) {
 
 					Intent in = new Intent(getApplicationContext(),
 							CollectQRActivity.class);
@@ -197,7 +201,7 @@ public class MainActivity extends Activity {
 		}
 
 		public int getCount() {
-			return CONTENT_Header.length;
+			return CONTENTS.length;
 		}
 
 		// set numcols
@@ -243,11 +247,34 @@ public class MainActivity extends Activity {
 				cover.setLayoutParams(mImageViewLayoutParams);
 			}
 
-			cover.setImageResource(ICONS_Header[position % ICONS_Header.length]);
-			title.setText(CONTENT_Header[position % CONTENT_Header.length]);
+			cover.setImageResource(ICONS[position % ICONS.length]);
+			title.setText(CONTENTS[position % CONTENTS.length]);
 
 			return view;
 		}
+	}
+
+	public void CheckImage() {
+		final SharedPreferences shared = getSharedPreferences(MY_PREFS,
+				Context.MODE_PRIVATE);
+		final int a = shared.getInt("SavePoint", 0);
+		int setImage[] = { R.drawable.one_pointbar, R.drawable.two_pointbar,
+				R.drawable.three_pointbar, R.drawable.four_pointbar,
+				R.drawable.five_pointbar, R.drawable.six_pointbar,
+				R.drawable.seven_pointbar, R.drawable.eight_pointbar,
+				R.drawable.nine_pointbar, R.drawable.ten_pointbar,
+				R.drawable.eleven_pointbar, R.drawable.twelve_pointbar,
+				R.drawable.thirteen_pointbar, R.drawable.fourteen_pointbar,
+				R.drawable.fifteen_pointbar, R.drawable.sixteen_pointbar,
+				R.drawable.seventeen_pointbar, R.drawable.eightteen_pointbar,
+				R.drawable.nineteen_pointbar, R.drawable.twenty_pointbar };
+		if (a == 0) {
+			ICONS[2] = R.drawable.logo_starbucks;
+		} else {
+			ICONS[2] = setImage[a - 1];
+
+		}
+
 	}
 
 }

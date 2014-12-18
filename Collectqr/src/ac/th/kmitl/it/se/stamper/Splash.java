@@ -2,22 +2,35 @@ package ac.th.kmitl.it.se.stamper;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Window;
+import android.widget.ImageView;
 
 public class Splash extends Activity {
 	Handler handler;
 	Runnable runnable;
 	Long delay_time;
-	Long time = 1500L;
+	Long time = 3000L;
 	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.splashscreen);
-		handler = new Handler(); 
 		
+		final ImageView animImageView = (ImageView) findViewById(R.id.ivAnimation);
+	    animImageView.setBackgroundResource(R.drawable.anim);
+	    animImageView.post(new Runnable() {
+	        @Override
+	        public void run() {
+	            AnimationDrawable frameAnimation =
+	                (AnimationDrawable) animImageView.getBackground();
+	            frameAnimation.start();
+	        }
+	    });
+		
+		handler = new Handler(); 
 		runnable = new Runnable() { 
 	         public void run() { 
 	        	 Intent intent = new Intent(Splash.this, MainActivity.class);

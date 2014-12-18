@@ -6,11 +6,11 @@
     android:background="@color/black" >
 
     <ImageView
-        android:id="@+id/imageView1"
+     android:id="@+id/ivAnimation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:src="@drawable/collectqr" />
+     android:contentDescription="Animation" />
  
 </RelativeLayout>

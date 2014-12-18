@@ -47,10 +47,10 @@ public class StarbucksActivity extends Activity {
 		// this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.starbucks_layout);
 
-		Intent b = getIntent();
-		recievecompany = b.getExtras().getString("company");
-		recieveobject_id = b.getExtras().getString("object_id");
-		recievepoint = b.getExtras().getString("point");
+		Intent intent = getIntent();
+		recievecompany = intent.getExtras().getString("company");
+		recieveobject_id = intent.getExtras().getString("object_id");
+		recievepoint = intent.getExtras().getString("point");
 		shop = recievecompany + "Shop";
 		infoPoint();
 
@@ -104,7 +104,7 @@ public class StarbucksActivity extends Activity {
 				R.drawable.nineteen_pointbar, R.drawable.twenty_pointbar };
 
 		if (a == 0) {
-			Toast.makeText(getApplicationContext(), "à¸„à¸¸à¸“à¸¢à¸±à¸‡à¹„à¸¡à¹ˆà¸¡à¸µà¹�à¸•à¹‰à¸¡à¹ƒà¸™à¸•à¸­à¸™à¸™à¸µà¹‰",
+			Toast.makeText(getApplicationContext(), "คุณยังไม่มีแต้มในตอนนี้",
 					Toast.LENGTH_SHORT).show();
 		} else {
 			img_point.setImageResource(setImage[a-1]);
@@ -126,22 +126,22 @@ public class StarbucksActivity extends Activity {
 				AlertDialog.Builder builder = new AlertDialog.Builder(
 						StarbucksActivity.this);
 				String time = timestamp();
-				builder.setTitle("à¸�à¸”à¸¢à¸·à¸™à¸¢à¸±à¸™à¹€à¸žà¸·à¹ˆà¸­à¸£à¸±à¸šà¸ªà¸´à¸—à¸˜à¸´à¹Œà¸ªà¹ˆà¸§à¸™à¸¥à¸”");
+				builder.setTitle("กดยืนยันเพื่อรับสิทธิ์ส่วนลด");
 				builder.setMessage(time);
-				builder.setPositiveButton("à¸¢à¸·à¸™à¸¢à¸±à¸™",
+				builder.setPositiveButton("ยืนยัน",
 						new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog, int id) {
 								Editor editor = shared.edit();
 								editor.putInt("SavePoint", b1 - 3);
 								editor.commit();
-			 					setContentView(R.layout.starbucks_layout);
+								setContentView(R.layout.starbucks_layout);
 								CheckImage();
 								Toast.makeText(getApplicationContext(),
-										"à¸—à¸³à¸£à¸²à¸¢à¸�à¸²à¸£à¸ªà¸³à¹€à¸£à¹‡à¸ˆ", Toast.LENGTH_SHORT)
+										"คุณได้รับรางวัลแล้ว", Toast.LENGTH_SHORT)
 										.show();
 							}
 						});
-				builder.setNegativeButton("à¸›à¸�à¸´à¹€à¸ªà¸˜", null);
+				builder.setNegativeButton("ยกเลิก", null);
 				builder.create();
 
 				builder.show();
@@ -163,9 +163,9 @@ public class StarbucksActivity extends Activity {
 				AlertDialog.Builder builder = new AlertDialog.Builder(
 						StarbucksActivity.this);
 				String time = timestamp();
-				builder.setTitle("à¸�à¸”à¸¢à¸·à¸™à¸¢à¸±à¸™à¹€à¸žà¸·à¹ˆà¸­à¸£à¸±à¸šà¸ªà¸´à¸—à¸˜à¸´à¹Œà¹�à¸¥à¸�à¸‚à¸­à¸‡à¸£à¸²à¸‡à¸§à¸±à¸¥");
+				builder.setTitle("กดยืนยันเพื่อรับของรางวัล");
 				builder.setMessage(time);
-				builder.setPositiveButton("à¸¢à¸·à¸™à¸¢à¸±à¸™",
+				builder.setPositiveButton("ยืนยัน",
 						new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog, int id) {
 								Editor editor = shared.edit();
@@ -174,11 +174,11 @@ public class StarbucksActivity extends Activity {
 								setContentView(R.layout.starbucks_layout);
 								CheckImage();
 								Toast.makeText(getApplicationContext(),
-										"à¸—à¸³à¸£à¸²à¸¢à¸�à¸²à¸£à¸ªà¸³à¹€à¸£à¹‡à¸ˆ", Toast.LENGTH_SHORT)
+										"คุณได้รับรางวัลแล้ว", Toast.LENGTH_SHORT)
 										.show();
 							}
 						});
-				builder.setNegativeButton("à¸›à¸�à¸´à¹€à¸ªà¸˜", null);
+				builder.setNegativeButton("ยกเลิก˜", null);
 				builder.create();
 
 				builder.show();
@@ -200,9 +200,9 @@ public class StarbucksActivity extends Activity {
 				AlertDialog.Builder builder = new AlertDialog.Builder(
 						StarbucksActivity.this);
 				String time = timestamp();
-				builder.setTitle("à¸�à¸”à¸¢à¸·à¸™à¸¢à¸±à¸™à¹€à¸žà¸·à¹ˆà¸­à¸£à¸±à¸šà¸ªà¸´à¸—à¸˜à¸´à¹Œà¹�à¸¥à¸�à¸‚à¸­à¸‡à¸£à¸²à¸‡à¸§à¸±à¸¥");
+				builder.setTitle("กดยืนยันเพื่อรับของรางวัล");
 				builder.setMessage(time);
-				builder.setPositiveButton("à¸¢à¸·à¸™à¸¢à¸±à¸™",
+				builder.setPositiveButton("ยืนยัน",
 						new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog, int id) {
 								Editor editor = shared.edit();
@@ -211,11 +211,11 @@ public class StarbucksActivity extends Activity {
 								setContentView(R.layout.starbucks_layout);
 								CheckImage();
 								Toast.makeText(getApplicationContext(),
-										"à¸—à¸³à¸£à¸²à¸¢à¸�à¸²à¸£à¸ªà¸³à¹€à¸£à¹‡à¸ˆ", Toast.LENGTH_SHORT)
+										"คุณได้รับราวัลแล้ว", Toast.LENGTH_SHORT)
 										.show();
 							}
 						});
-				builder.setNegativeButton("à¸›à¸�à¸´à¹€à¸ªà¸˜", null);
+				builder.setNegativeButton("ยกเลิก", null);
 				builder.create();
 
 				builder.show();
@@ -237,9 +237,9 @@ public class StarbucksActivity extends Activity {
 				AlertDialog.Builder builder = new AlertDialog.Builder(
 						StarbucksActivity.this);
 				String time = timestamp();
-				builder.setTitle("à¸�à¸”à¸¢à¸·à¸™à¸¢à¸±à¸™à¹€à¸žà¸·à¹ˆà¸­à¸£à¸±à¸šà¸ªà¸´à¸—à¸˜à¸´à¹Œà¹�à¸¥à¸�à¸‚à¸­à¸‡à¸£à¸²à¸‡à¸§à¸±à¸¥");
+				builder.setTitle("กดยืนยันเพื่อรับของรางวัล");
 				builder.setMessage(time);
-				builder.setPositiveButton("à¸¢à¸·à¸™à¸¢à¸±à¸™",
+				builder.setPositiveButton("ยืนยัน",
 						new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog, int id) {
 								Editor editor = shared.edit();
@@ -248,11 +248,11 @@ public class StarbucksActivity extends Activity {
 								setContentView(R.layout.starbucks_layout);
 								CheckImage();
 								Toast.makeText(getApplicationContext(),
-										"à¸—à¸³à¸£à¸²à¸¢à¸�à¸²à¸£à¸ªà¸³à¹€à¸£à¹‡à¸ˆ", Toast.LENGTH_SHORT)
+										"คุณได้รับรางวัลแล้ว", Toast.LENGTH_SHORT)
 										.show();
 							}
 						});
-				builder.setNegativeButton("à¸›à¸�à¸´à¹€à¸ªà¸˜", null);
+				builder.setNegativeButton("ยกเลิก", null);
 				builder.create();
 
 				builder.show();
@@ -274,9 +274,9 @@ public class StarbucksActivity extends Activity {
 				AlertDialog.Builder builder = new AlertDialog.Builder(
 						StarbucksActivity.this);
 				String time = timestamp();
-				builder.setTitle("à¸�à¸”à¸¢à¸·à¸™à¸¢à¸±à¸™à¹€à¸žà¸·à¹ˆà¸­à¸£à¸±à¸šà¸ªà¸´à¸—à¸˜à¸´à¹Œà¹�à¸¥à¸�à¸‚à¸­à¸‡à¸£à¸²à¸‡à¸§à¸±à¸¥");
+				builder.setTitle("กดยืนยันเพื่อรับของรางวัล");
 				builder.setMessage(time);
-				builder.setPositiveButton("à¸¢à¸·à¸™à¸¢à¸±à¸™",
+				builder.setPositiveButton("ยืนยัน",
 						new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog, int id) {
 								Editor editor = shared.edit();
@@ -285,11 +285,11 @@ public class StarbucksActivity extends Activity {
 								setContentView(R.layout.starbucks_layout);
 								CheckImage();
 								Toast.makeText(getApplicationContext(),
-										"à¸—à¸³à¸£à¸²à¸¢à¸�à¸²à¸£à¸ªà¸³à¹€à¸£à¹‡à¸ˆ", Toast.LENGTH_SHORT)
+										"คุณได้รับรางวัลแล้ว", Toast.LENGTH_SHORT)
 										.show();
 							}
 						});
-				builder.setNegativeButton("à¸›à¸�à¸´à¹€à¸ªà¸˜", null);
+				builder.setNegativeButton("ยกเลิก˜", null);
 				builder.create();
 
 				builder.show();
@@ -306,8 +306,8 @@ public class StarbucksActivity extends Activity {
 			public void onClick(View v) {
 				AlertDialog.Builder builder = new AlertDialog.Builder(
 						StarbucksActivity.this);
-				builder.setMessage("à¸ªà¸°à¸ªà¸¡à¸„à¸£à¸š 3 à¹�à¸•à¹‰à¸¡ à¸£à¸±à¸šà¸Ÿà¸£à¸µà¸ªà¹ˆà¸§à¸™à¸¥à¸” 10%");
-				builder.setNegativeButton("à¸•à¸�à¸¥à¸‡", null);
+				builder.setMessage("สะสมครบ 3 แต้ม รับฟรีส่วนลด 10%");
+				builder.setNegativeButton("ตกลง", null);
 				builder.create();
 				builder.show();
 
@@ -321,8 +321,8 @@ public class StarbucksActivity extends Activity {
 			public void onClick(View v) {
 				AlertDialog.Builder builder = new AlertDialog.Builder(
 						StarbucksActivity.this);
-				builder.setMessage("à¸ªà¸°à¸ªà¸¡à¸„à¸£à¸š 8 à¹�à¸•à¹‰à¸¡ butterfly biscuit à¸žà¸£à¸µ 1 à¸Šà¸´à¹‰à¸™");
-				builder.setNegativeButton("à¸•à¸�à¸¥à¸‡", null);
+				builder.setMessage("สะสมครบ 8 แต้มรับฟรี  butterfly biscuit หนึ่งชิ้น");
+				builder.setNegativeButton("ตกลง", null);
 				builder.create();
 				builder.show();
 
@@ -336,8 +336,8 @@ public class StarbucksActivity extends Activity {
 			public void onClick(View v) {
 				AlertDialog.Builder builder = new AlertDialog.Builder(
 						StarbucksActivity.this);
-				builder.setMessage("à¸ªà¸°à¸ªà¸¡à¸„à¸£à¸š 12 à¹�à¸•à¹‰à¸¡ à¸£à¸±à¸šà¹€à¸„à¸£à¸·à¹ˆà¸­à¸‡à¸”à¸·à¹ˆà¸¡à¸£à¹‰à¸­à¸™à¸Ÿà¸£à¸µ 1 à¹�à¸�à¹‰à¸§");
-				builder.setNegativeButton("à¸•à¸�à¸¥à¸‡", null);
+				builder.setMessage("สะสมครบ 12 แต้มรับฟรี เครื่องดื่มร้อนชนิดใดก็ได้ ");
+				builder.setNegativeButton("ตกลง", null);
 				builder.create();
 				builder.show();
 
@@ -351,8 +351,8 @@ public class StarbucksActivity extends Activity {
 			public void onClick(View v) {
 				AlertDialog.Builder builder = new AlertDialog.Builder(
 						StarbucksActivity.this);
-				builder.setMessage("à¸ªà¸°à¸ªà¸¡à¸„à¸£à¸š 17 à¹�à¸•à¹‰à¸¡ à¸£à¸±à¸šà¹€à¸„à¸£à¸·à¹ˆà¸­à¸‡à¸”à¸·à¹ˆà¸¡à¸›à¸±à¹ˆà¸™à¸Ÿà¸£à¸µ 1 à¹�à¸�à¹‰à¸§");
-				builder.setNegativeButton("à¸•à¸�à¸¥à¸‡", null);
+				builder.setMessage("สะสมครับ 17 แต้มรับฟรี เครื่องดื่มปั่นชนิดในก็ได้");
+				builder.setNegativeButton("ตกลง", null);
 				builder.create();
 				builder.show();
 
@@ -366,8 +366,8 @@ public class StarbucksActivity extends Activity {
 			public void onClick(View v) {
 				AlertDialog.Builder builder = new AlertDialog.Builder(
 						StarbucksActivity.this);
-				builder.setMessage("à¸ªà¸°à¸ªà¸¡à¸„à¸£à¸š 20 à¹�à¸•à¹‰à¸¡ à¸£à¸±à¸š tumbler à¸Ÿà¸£à¸µ 1 à¹�à¸�à¹‰à¸§");
-				builder.setNegativeButton("à¸•à¸�à¸¥à¸‡", null);
+				builder.setMessage("สะสมครบ 20 แต้มรับฟรี แก้วน้ำ tumbler");
+				builder.setNegativeButton("ตกลง", null);
 				builder.create();
 				builder.show();
 
@@ -380,5 +380,11 @@ public class StarbucksActivity extends Activity {
 				Calendar.getInstance().getTime());
 		return mydate;
 	}
-
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		Intent intent = new Intent(getBaseContext(), MainActivity.class);
+		startActivity(intent);
+	}
 }

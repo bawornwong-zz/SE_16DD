@@ -35,14 +35,13 @@ public class CollectQRActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-//		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		// this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.starbucksqr_layout);
 
-		Intent intent = getIntent();
-		recievecompany = intent.getExtras().getString("company");
-		recieveobject_id = intent.getExtras().getString("object_id");
-		recievepoint = intent.getExtras().getString("point");
-		// point = Integer.parseInt(recievepoint);
+		Intent b = getIntent();
+		recievecompany = b.getExtras().getString("company");
+		recieveobject_id = b.getExtras().getString("object_id");
+		recievepoint = b.getExtras().getString("point");
 		shop = recievecompany + "Shop";
 
 		ParseQuery<ParseObject> query = ParseQuery.getQuery(shop);
@@ -50,26 +49,27 @@ public class CollectQRActivity extends Activity {
 			public void done(ParseObject object, ParseException e) {
 				if (e == null) {
 					Log.d("******", "+++++++++++++++");
-					boolean checkpoint = object.getBoolean("CheckPoint");
+					boolean checkpoint = object.getBoolean("checkPoint");
 					if (checkpoint == false) {
-						point = object.getInt("Point");
+						point = object.getInt("point");
 						// save session
 						final SharedPreferences shared = getSharedPreferences(
 								MY_PREFS, Context.MODE_PRIVATE);
 						int a = shared.getInt("SavePoint", 0);
 						a = a + point;
-						
+
 						Editor editor = shared.edit();
 						editor.putInt("SavePoint", a);
 						editor.commit();
 						
-						object.put("CheckPoint", true);
+						object.put("checkPoint", true);
 						object.saveInBackground();
 						Extent();
-						
+
 					} else {
 						Toast.makeText(getApplicationContext(),
-								"QrCode à¹„à¸¡à¹ˆà¸–à¸¹à¸�à¸•à¹‰à¸­à¸‡", Toast.LENGTH_SHORT).show();
+								"QrCode ไม่ถูกต้อง",
+								Toast.LENGTH_SHORT).show();
 					}
 
 				} else {
@@ -87,14 +87,13 @@ public class CollectQRActivity extends Activity {
 		myMenuInflater.inflate(R.menu.mymenu, menu);
 		return super.onCreateOptionsMenu(menu);
 	}
-	
-	public void Extent(){
+
+	public void Extent() {
 		String company = "none";
 		String object_id = "none";
 		String point = "-1";
 
-		Intent in = new Intent(getApplicationContext(),
-				StarbucksActivity.class);
+		Intent in = new Intent(getApplicationContext(), StarbucksActivity.class);
 
 		Bundle data = new Bundle();
 		data.putString("company", company);
